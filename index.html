@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <input type="text" id="userInput" placeholder="Ask Gemini...">
+    <button onclick="askGemini()">Send</button>
+    <textarea id="hiddenOutput" style="display:none;"></textarea>
+
+    <script>
+        async function askGemini() {
+            const prompt = document.getElementById('userInput').value;
+            
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt })
+            });
+
+            const data = await response.json();
+            document.getElementById('hiddenOutput').value = data.text;
+            console.log("Response received!");
+        }
+    </script>
+</body>
+</html>
